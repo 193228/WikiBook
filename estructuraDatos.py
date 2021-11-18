@@ -1,6 +1,5 @@
 import re
 
-
 def creacionDataframe(lista):
     #print(lista['items'][0]['volumeInfo']['categories'])
     #print(lista['items'][0]["volumeInfo"]['title'])

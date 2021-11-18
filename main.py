@@ -1,5 +1,3 @@
-import threading
-
 import pandas as pd
 from flask import Flask, render_template, request, flash
 from concurrency import *
@@ -21,6 +19,7 @@ def leerTxt():
         file = request.files['file']
         lineas = file.stream.read().decode("utf-8")
         listaIsbn = obtenerIsbn(lineas)
+        print(listaIsbn)
         if len(listaIsbn)>0:
             listaLibros = asyncio.run(main(listaIsbn))
             consulta.append(listaLibros[2])
@@ -29,7 +28,6 @@ def leerTxt():
                 if x is not None:
                     diccionario.append(x)
             dataframeInfo = pd.DataFrame(diccionario)
-            print(dataframeInfo)
             if dataframeInfo.empty:
                 flash("No se leyo nigun ISBN O la api no lo reconoce O solicitud excedida por hoy")
                 return render_template('index.html')
